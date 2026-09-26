@@ -14,6 +14,7 @@ print('Cronbach α', {k: round(alpha(*v), 3) for k, v in
       dict(무위=('ww1', 'ww2'), 유약=('sf1', 'sf2'), 허정=('em1', 'em2'), 플로우=('fl1', 'fl2')).items()})
 print(df[['exp', 'score', 'hcp', 'last10', 'ww', 'sf', 'em', 'tao', 'goal', 'fl1', 'fl2']]
       .describe().T[['mean', '50%', 'std', 'min', 'max']].round(2))
+df['lv'] = df.lv.replace({'4티칭': '4프로', '5투어': '4프로'})  # 티칭(3)+투어(4) → 프로(7)
 print(df.lv.value_counts().sort_index())
 for v in ['ww', 'sf', 'em', 'flow']:
     F, p = stats.f_oneway(*[g[v] for _, g in df.groupby('lv')])
